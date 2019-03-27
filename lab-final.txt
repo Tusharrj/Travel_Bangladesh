@@ -1,0 +1,159 @@
+CREATE table student(
+	snum int,
+    nmane varchar,
+    major varchar,
+   	slevel varchar,
+    age int
+
+
+
+);
+
+
+
+CREATE TABLE class(
+    cname varchar(30),
+    meets_at varchar(30),
+    room varchar(30),
+    fid int(10)
+
+
+);
+
+
+
+
+CREATE TABLE enrolled(
+    snum int(10),
+    cname varchar(30)
+
+
+
+
+
+);
+
+
+
+
+
+CREATE table faculty(
+    fid int(10),
+    fname varchar(30),
+    deptid int(10)
+
+
+
+);
+
+
+
+
+INSERT INTO `student`(`snum`, `nmane`, `major`, `slevel`, `age`) 
+
+VALUES 
+( 01, 'tanvir', 'cse' , 'SR' , 25),
+( 02, 'tanim', 'eee' ,  'JR' , 20),
+( 03, 'tanzir', 'bba' , 'FR' , 21),
+( 04, 'tanzil', 'bbt' , 'SR' , 23),
+( 05, 'tanzim', 'cse' , 'JR' , 19)
+
+
+
+
+INSERT INTO `faculty`(`fid`, `fname`, `deptid`) 
+
+VALUES 
+
+(001, 'ADF' , 042),
+(002, 'SVA' , 043),
+(003, 'NVA' , 044),
+(004, 'AMC' , 030)
+
+
+
+INSERT INTO `class`(`cname`, `meets_at`, `room`, `fid`) 
+
+
+VALUES 
+
+
+('SAC' , '11.20AM' , '311' , 001 ),
+('SAC' , '01.00PM' , '309' , 002 ),
+('SAC' , '02.40PM' , '301' , 003 ),
+('SAC' , '04.00PM' , '310' , 004 )
+
+
+
+INSERT INTO `enrolled`(`snum`, `cname`) 
+
+
+VALUES 
+
+(40, 311),
+(40, 309),
+(40, 310),
+(40, 301)
+
+
+
+q.1
+SELECT name , slevel , fname 
+FROM student s , enrolled e , faculty f
+WHERE cname= 311 and s.snum = e.snum and slevel = 'JR' and f.fname = "ADF" ;
+
+q.2
+SELECT MAX(age)
+FROM enrolled e , student s , faculty f
+WHERE f. fname = "ADF" or s. major ="eee" or s.snum = e. SNUM
+
+
+q.3
+
+SELECT cname
+FROM class c , enrolled e , student s 
+WHERE (cname= "311" and e.TOTAL_STUDENTS > 5 )and c.cname = e.cname and s.snum = e.snum ;
+
+q.4 
+
+SELECT s.snum, name FROM student s, enrolled e
+WHERE s.snum > 1 and s.snum = e.snum
+
+
+q.5 
+
+SELECT f.fname, name FROM student s, enrolled e, faculty f , class c
+WHERE s.snum > 1 and s.snum = e.snum and f.fid = c.fid
+
+
+
+q.7
+
+SELECT AVG (age)
+from student
+WHERE age<>"JR"
+
+q.9
+
+SELECT student.name,
+MAX(enrolled.snum)
+FROM  student  , enrolled  
+WHERE student.snum =  enrolled.snum
+
+q.10
+
+SELECT s.name, e.cname
+FROM  student s , enrolled e , class c
+GROUP by s.snum
+
+
+
+
+SELECT name
+from student s , enrolled e
+WHERE s.snum = e.snum  and s.snum != e.snum
+
+
+
+
+

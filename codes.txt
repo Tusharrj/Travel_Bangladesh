@@ -1,0 +1,24 @@
+CREATE TABLE Student(
+    snum INTEGER,
+    sname VARCHAR(15),
+    major VARCHAR(15),
+    slevel VARCHAR(15),
+    age INTEGER );
+
+CREATE TABLE class(
+    cname VARCHAR(15),
+    meets_at VARCHAR(15),
+    room VARCHAR(15),
+    fid INTEGER);
+
+CREATE TABLE enrolled(
+    snum INTEGER,
+    cname VARCHAR(15)
+    );
+    
+
+CREATE TABLE faculty(
+    fid INTEGER,
+    fname VARCHAR(15),
+    deptid INTEGER
+    );

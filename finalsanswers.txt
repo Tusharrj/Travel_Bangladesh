@@ -1,0 +1,75 @@
+1) SELECT sname
+FROM student,enrolled
+WHERE student.snum=enrolled.snum
+	AND slevel='Junior' 
+	AND cname = (SELECT cname
+			FROM class,faculty
+			WHERE class.fid=faculty.fid AND fname='ADF')
+
+2)
+
+SELECT MAX(age)
+FROM student,enrolled
+WHERE student.snum=enrolled.snum 
+	AND major='EEE' OR cname =(SELECT cname
+				FROM class,faculty
+				WHERE class.fid=faculty.fid AND fname='ADF')
+
+
+
+3)SELECT cname
+FROM class
+WHERE room='SAC311' OR cname = ( SELECT cname
+                                 FROM enrolled,class
+				WHERE enrolled.cname=class.cname
+                                 GROUP BY cname
+                                HAVING COUNT (*) >= 5
+                                )
+                      
+	
+
+4)SELECT DISTINCT student.sname
+FROM Student
+WHERE student.snum IN (SELECT E1.snum
+FROM enrolled E1, enrolled E2, class C1, class C2
+WHERE E1.snum = E2.snum AND E1.cname <> E2.cname
+AND E1.cname = C1.cname
+AND E2.cname = C2.cname AND C1.meets_at = C2.meets_at)
+
+5)SELECT DISTINCT fname
+FROM faculty
+WHERE 5 > (SELECT COUNT(enrolled.snum)
+			FROM class, enrolled
+			WHERE class.cname = enrolled.cname
+			AND class.fid = faculty.fid)
+
+
+
+7)SELECT slevel, AVG(age)
+FROM student
+WHERE slevel<>'Junior'
+GROUP BY slevel
+
+8)SELECT fname, COUNT(*) AS CourseCount
+FROM faculty,class
+WHERE faculty.fid = class.fid
+GROUP BY fid,fname
+HAVING EVERY (room = 'SAC311')
+
+9)
+SELECT DISTINCT sname
+FROM student
+WHERE snum IN (	SELECT snum
+		FROM enrolled
+		GROUP BY snum
+		HAVING COUNT(*)>=ALL(SELECT COUNT(*)
+				FROM enrolled
+				GROUP BY snum )
+    )
+
+10)
+SELECT DISTINCT sname
+FROM student
+WHERE snum NOT IN (SELECT enrolled.snum FROM enrolled )
+			
+
