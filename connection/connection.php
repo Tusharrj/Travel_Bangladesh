@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "id5506355_travelbd";
-$password = "$$travelBD%%";
+$password = "tanvircse299";
 $database = "id5506355_travelbangladesh";
 
 try {
